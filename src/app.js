@@ -4,7 +4,8 @@ const sendErrorResponse = require('./helpers/bot_downtime_error_message');
 const User = require('./database/models/user.model');
 const message_contructor = require('./helpers/message_body');
 const { createSlackUser } = require('./database/writes/writes');
-const receiver = new ExpressReceiver({ signingSecret: process.env.SLACK_SIGNIN_SECRET});
+const { getUserResponse, getUsers } = require('./database/reads/reads');
+const receiver = new ExpressReceiver({ signingSecret: process.env.SLACK_SIGNIN_SECRET });
 const app = new App({
     token: process.env.SLACK_BOT_TOKEN,
     signingSecret: process.env.SLACK_SIGNIN_SECRET,
@@ -23,7 +24,7 @@ app.command('/bot', async ({ ack, payload, context }) => {
         const user_slack_id = payload.user_id
         const username = payload.user_name
         // create slack user
-        await createSlackUser(User, user_slack_id,username)
+        await createSlackUser(User, user_slack_id, username)
         // post response to channel
         await app.client.chat.postMessage({
             token: context.botToken,
@@ -179,11 +180,12 @@ app.action('checkboxes-action', async ({ ack, body, context }) => {
 
 
 
-receiver.app.get('/get-user-response/:user_slack_id',async (req, res, next) => {
+receiver.app.get('/get-user-response/:user_slack_id', async (req, res, next) => {
     const user_slack_id = req.params.user_slack_id;
     try {
-        const user_responses = await User.findOne({ user_slack_id })
-       return  res.status(200).send({
+        const user_responses = await getUserResponse(User, user_slack_id)
+        console.log(user_responses)
+        return res.status(200).send({
             user_responses: {
                 slack_id: user_slack_id,
                 feeling: user_responses.feeling,
@@ -192,32 +194,31 @@ receiver.app.get('/get-user-response/:user_slack_id',async (req, res, next) => {
         })
     } catch (error) {
         console.log(error)
-    return  res.status(400).send({error:error.message})
+        return res.status(400).send({ error: error.message })
     }
 });
 
 
-receiver.app.get('/get-all-users',async (req, res, next) => {
+receiver.app.get('/get-all-users', async (req, res, next) => {
     try {
-        const users = await User.find({})
-       return  res.status(200).send({
-           users
+        const users = await getUsers(User)
+        return res.status(200).send({
+            users
         })
     } catch (error) {
         console.log(error)
-    return  res.status(400).send({error:error.message})
+        return res.status(400).send({ error: error.message })
     }
 });
 
-receiver.app.get('/',async (req, res, next) => {
+receiver.app.get('/', async (req, res, next) => {
     try {
-        const users = await User.find({})
-       return  res.status(200).send({msg:"Server Listening"})
+        return res.status(200).send({ msg: "Server Listening" })
     } catch (error) {
         console.log(error)
-    return  res.status(400).send({error:error.message})
+        return res.status(400).send({ error: error.message })
     }
 });
 
-module.exports = {app, receiver}
+module.exports = { app, receiver }
 
