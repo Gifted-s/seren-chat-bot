@@ -32,3 +32,13 @@ npm run test
 live server base 
 
 [https://seren-slack-bot.herokuapp.com](https://seren-slack-bot.herokuapp.com/)
+
+
+Get all users 
+[https://seren-slack-bot.herokuapp.com/get-all-users](https://seren-slack-bot.herokuapp.com/get-all-users)
+
+Get a user reponse
+[https://seren-slack-bot.herokuapp.com/get-user-response/{user_slack_id}](https://seren-slack-bot.herokuapp.com/get-user-response/U02JV1C1VL2)
+
+example 
+(https://seren-slack-bot.herokuapp.com/get-user-response/U02JV1C1VL2)
