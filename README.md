@@ -10,19 +10,25 @@ Node - [Download](https://nodejs.org/en/download/)
 To run locally
 
 Install packages
-```npm i
+```
+npm i
+
 ```
 
 Run start command
 
-```npm start
+```
+npm start
+
 ```
 <br/>
 To run test
 
-```npm run test
+```
+npm run test
+
 ```
 
 live server base 
 
-[URL](https://seren-slack-bot.herokuapp.com/)
+[https://seren-slack-bot.herokuapp.com](https://seren-slack-bot.herokuapp.com/)
