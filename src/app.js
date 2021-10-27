@@ -50,6 +50,7 @@ app.command('/bot', async ({ ack, payload, context }) => {
 app.action('doing_well_action', async ({ ack, body, context }) => {
     // Acknowledge the button request
     ack();
+    console.log(body)
     try {
         const user_slack_id = body.user.id;
         // Update the message

@@ -114,7 +114,7 @@ const message_contructor = Object.freeze({
         }
 
     ],
-    thank_you_message:[
+    thank_you_message: [
         {
             type: 'section',
             text: {
