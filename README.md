@@ -12,10 +12,11 @@ To run locally
 Install packages
 `npm i
 `
+<br/>
 Run start command
 `npm start
 `
-
+<br/>
 To run test
 
 `npm run test
