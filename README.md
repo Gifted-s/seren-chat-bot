@@ -10,17 +10,18 @@ Node - [Download](https://nodejs.org/en/download/)
 To run locally
 
 Install packages
-`npm i
-`
-<br/>
+```npm i
+```
+
 Run start command
-`npm start
-`
+
+```npm start
+```
 <br/>
 To run test
 
-`npm run test
-`
+```npm run test
+```
 
 live server base 
 
